@@ -1,0 +1,267 @@
+.hero {
+  position: relative;
+  height: 130vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-fallback {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--darker), var(--dark));
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 7, 23, 0.8) 0%,
+    rgba(2, 3, 7, 0.6) 50%,
+    rgb(0, 2, 7) 100%
+  );
+}
+
+.hero-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: 37px;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  line-height: 30.8px;
+}
+
+.gradient-text {
+  font-weight: 500;
+  background-color: var(--light);
+  -webkit-background-clip: text;
+  background-clip: text;
+  display: block;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 2.5rem;
+  color: #cbd5e1;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.scroll-line {
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+}
+
+/* Consult */
+.consult {
+  display: flex;
+  justify-content: center;
+  padding: 7rem 0 7rem 17rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.dialogue {
+  display: flex;
+  justify-content: start;
+  /* align-items: center; */
+  flex-direction: column;
+}
+
+.dialogue > p {
+  width: 40%;
+  line-height: 1.4rem;
+  margin: 1.5rem -10rem 0 10rem ;
+  font-size: 16px;
+}
+
+/* Partners */
+.partners {
+  display: flex;
+  justify-content: start;
+  padding: 7rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.partner-article {
+  width: 37%;
+}
+
+.partner-article > h2 {
+  margin-bottom: 2rem;
+}
+
+/* Services Grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.service-card {
+  background: var(--darker);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--light);
+  padding: 2rem 2.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.service-card:hover::before {
+  left: 100%;
+}
+
+.service-icon {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 1.5rem;
+  background: var(--dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.service-card h3 {
+  font-size: 24px;
+  margin-bottom: 0.6rem;
+  color: var(--light);
+}
+
+.service-card p {
+  font-size: 14px;
+  color: var(--light);
+}
+
+.service-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.service-link:hover {
+  gap: 1rem;
+}
+
+/* Portfolio Preview */
+.faq-section {
+  display: flex;
+  padding: 7rem 0;
+}
+
+/* CTA Section */
+.cta-section {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.cta-content h2 {
+  font-size: clamp(1rem, 4vw, 2rem);
+  margin-bottom: 2.5rem;
+}
+
+.cta-content p {
+  font-size: 1rem;
+  color: #cbd5e1;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  background: var(--darker);
+  color: white;
+  border: 0.5px solid var(--light);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  font-weight: 400;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: var(--font-cinematic);
+  font-size: 1.1rem;
+  border-radius: 70px;
+}
+
+.arrow-right:hover {
+  transition: 0.7s;
+  transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+  
+}

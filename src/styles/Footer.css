@@ -1,0 +1,6 @@
+/* src/styles/Footer.css */
+.footer {
+  background: var(--darker);
+  border-top: 1px solid var(--gray-dark);
+  padding: 3rem 0 1rem;
+}
