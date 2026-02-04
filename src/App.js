@@ -1,9 +1,70 @@
-// App.js – Mobile-First React App
+// App.js - Complete Professional Implementation
 import { BrowserRouter as Router, Routes, Route, NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
+import { 
+  FiMenu, 
+  FiX, 
+  FiChevronRight,
+  FiMapPin, 
+  FiPhone, 
+  FiMail, 
+  FiClock,
+  FiCheckCircle,
+  FiAlertTriangle,
+  FiShield,
+  FiDroplet,
+  FiScale,
+  FiDollarSign,
+  FiTruck,
+  FiTool,
+  FiHome,
+  FiUsers,
+  FiAlertCircle,
+  FiPhoneCall,
+  FiMessageSquare,
+  FiNavigation,
+  FiTarget,
+  FiStar,
+  FiAward,
+  FiEye,
+  FiThumbsUp,
+  FiXCircle,
+  FiSun,
+  FiWind,
+  FiZap,
+  FiUserCheck
+} from "react-icons/fi";
+import { 
+  FaWhatsapp, 
+  FaFire, 
+  FaWeight, 
+  FaCertificate,
+  FaGasPump,
+  FaExchangeAlt,
+  FaSearch,
+  FaRegCalendarCheck,
+  FaBalanceScale,
+  FaShieldAlt,
+  FaLeaf,
+  FaIndustry,
+  FaHandHoldingHeart,
+  FaUserTie
+} from "react-icons/fa";
+import { GiGasMask, GiGasStove, GiWeightScale } from "react-icons/gi";
+import { 
+  MdLocalFireDepartment, 
+  MdOutlinePrecisionManufacturing,
+  MdSafetyDivider,
+  MdLocationOn,
+  MdOutlineVerified,
+  MdOutlineSupportAgent
+} from "react-icons/md";
+import { TbGasStation, TbCertificate, TbCurrencyNaira } from "react-icons/tb";
+import { IoIosSpeedometer, IoIosFlame } from "react-icons/io";
+import { BsFillShieldLockFill, BsClipboardCheck } from "react-icons/bs";
 import './App.css';
 
-// Header Component with Hamburger Menu
+// Header Component
 function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,7 +75,6 @@ function Header() {
     const onScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", onScroll);
     
-    // Close menu when clicking outside
     const handleClickOutside = (event) => {
       if (menuOpen && 
           !mobileMenuRef.current?.contains(event.target) && 
@@ -25,7 +85,6 @@ function Header() {
     
     document.addEventListener('mousedown', handleClickOutside);
     
-    // Prevent body scroll when menu is open
     if (menuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -39,41 +98,37 @@ function Header() {
     };
   }, [menuOpen]);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const closeMenu = () => setMenuOpen(false);
 
   const navItems = [
-    { path: "/", label: "Home", end: true },
-    { path: "/about", label: "About" },
-    { path: "/safety", label: "Safety" },
-    { path: "/contact", label: "Contact" },
+    { path: "/", label: "Home", icon: <FiHome /> },
+    { path: "/about", label: "About", icon: <FiUsers /> },
+    { path: "/safety", label: "Safety", icon: <FiShield /> },
+    { path: "/contact", label: "Contact", icon: <FiPhone /> },
   ];
 
   return (
     <header className={`header ${scrolled ? "header--scrolled" : ""}`}>
       <div className="container header__inner">
-        <div className="logo">HOMANOL</div>
+        <div className="logo">
+          <IoIosFlame className="logo-icon" /> HOMANOL
+        </div>
         
-        {/* Desktop Navigation */}
         <nav className="nav">
           {navItems.map((item) => (
             <NavLink 
               key={item.path}
               to={item.path}
-              end={item.end}
+              end={item.path === "/"}
               onClick={closeMenu}
+              className={({ isActive }) => isActive ? "active" : ""}
             >
               {item.label}
             </NavLink>
           ))}
         </nav>
         
-        {/* Mobile Menu Button */}
         <button 
           ref={menuBtnRef}
           className={`mobile-menu-btn ${menuOpen ? "active" : ""}`}
@@ -86,26 +141,32 @@ function Header() {
           <span></span>
         </button>
         
-        {/* Mobile Menu Overlay */}
         <div 
           className={`mobile-nav-overlay ${menuOpen ? "active" : ""}`}
           onClick={closeMenu}
         ></div>
         
-        {/* Mobile Navigation */}
         <nav 
           ref={mobileMenuRef}
           className={`mobile-nav ${menuOpen ? "active" : ""}`}
         >
+          <div className="mobile-nav__header">
+            <div className="logo">
+              <IoIosFlame className="logo-icon" /> HOMANOL
+            </div>
+          </div>
           <ul className="mobile-nav__links">
             {navItems.map((item) => (
               <li key={item.path}>
                 <NavLink 
                   to={item.path}
-                  end={item.end}
+                  end={item.path === "/"}
                   onClick={closeMenu}
+                  className={({ isActive }) => isActive ? "active" : ""}
                 >
-                  {item.label}
+                  <span className="nav-icon">{item.icon}</span>
+                  <span className="nav-label">{item.label}</span>
+                  <FiChevronRight className="nav-chevron" />
                 </NavLink>
               </li>
             ))}
@@ -125,19 +186,27 @@ function Footer() {
       <div className="container">
         <div className="footer__content">
           <div className="footer__section">
-            <h3>HOMANOL Gas Plant</h3>
+            <h3><IoIosFlame /> HOMANOL Gas Plant</h3>
             <p>Providing accurate, safe, and reliable cooking gas solutions since 2015. Your trusted partner for quality LPG services.</p>
-            <p><strong>Open:</strong> Mon-Sat 7:00 AM - 8:00 PM<br/>
+            <p><strong><FiClock /> Open:</strong> Mon-Sat 7:00 AM - 8:00 PM<br/>
                <strong>Sundays:</strong> 9:00 AM - 4:00 PM</p>
+            <div className="footer-certifications">
+              <div className="cert-badge">
+                <MdOutlineVerified /> ISO Certified
+              </div>
+              <div className="cert-badge">
+                <FaShieldAlt /> Safety Compliant
+              </div>
+            </div>
           </div>
           
           <div className="footer__section">
             <h3>Quick Links</h3>
             <ul className="footer__links">
-              <li><NavLink to="/">Home</NavLink></li>
-              <li><NavLink to="/about">About Us</NavLink></li>
-              <li><NavLink to="/safety">Safety Tips</NavLink></li>
-              <li><NavLink to="/contact">Contact</NavLink></li>
+              <li><NavLink to="/"><FiHome /> Home</NavLink></li>
+              <li><NavLink to="/about"><FiUsers /> About Us</NavLink></li>
+              <li><NavLink to="/safety"><FiShield /> Safety Tips</NavLink></li>
+              <li><NavLink to="/contact"><FiPhone /> Contact</NavLink></li>
             </ul>
           </div>
           
@@ -145,22 +214,20 @@ function Footer() {
             <h3>Contact Info</h3>
             <ul className="footer__contact">
               <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                </svg>
+                <FiMapPin />
                 <span>98 Port Harcourt Road, Aba, Abia State</span>
               </li>
               <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                </svg>
+                <FiMail />
                 <span>info@homanolgas.com</span>
               </li>
               <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                </svg>
+                <FiPhone />
                 <span>+234 803 123 4567</span>
+              </li>
+              <li>
+                <FiAlertCircle />
+                <span>Emergency: +234 803 999 4567</span>
               </li>
             </ul>
           </div>
@@ -168,18 +235,21 @@ function Footer() {
         
         <div className="footer__bottom">
           <p>&copy; {currentYear} HOMANOL Gas Plant. All rights reserved. | Safety First, Always.</p>
+          <p className="footer-transparency">
+            <FiEye /> Transparent Operations • <FaBalanceScale /> Fair Pricing • <FaShieldAlt /> Safety Certified
+          </p>
         </div>
       </div>
     </footer>
   );
 }
 
-// Mobile CTA Buttons Component
+// Mobile CTA Component
 function MobileCTA() {
   return (
     <div className="mobile-cta">
       <a href="tel:+2348031234567" className="cta-button cta-call" aria-label="Call us">
-        <span>📞</span>
+        <FiPhoneCall />
         <div className="cta-button__text">
           <span>Call Now</span>
         </div>
@@ -191,7 +261,7 @@ function MobileCTA() {
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
       >
-        <span>💬</span>
+        <FaWhatsapp />
         <div className="cta-button__text">
           <span>WhatsApp</span>
         </div>
@@ -200,7 +270,8 @@ function MobileCTA() {
   );
 }
 
-// Home Page Component
+
+// Home Page Component - FIXED VERSION
 function Home() {
   const navigate = useNavigate();
   const [visibleElements, setVisibleElements] = useState({});
@@ -213,20 +284,22 @@ function Home() {
           if (entry.isIntersecting) {
             setVisibleElements(prev => ({
               ...prev,
-              [entry.target.id]: true
+              [entry.target.dataset.section]: true
             }));
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.1 }
     );
 
     observerRef.current = observer;
-
-    // Observe all sections with animation
-    const sections = document.querySelectorAll('.animate-on-scroll');
-    sections.forEach(section => observer.observe(section));
+    
+    // Use setTimeout to ensure DOM is fully rendered
+    setTimeout(() => {
+      const sections = document.querySelectorAll('[data-section]');
+      sections.forEach(section => observer.observe(section));
+    }, 100);
 
     return () => {
       if (observerRef.current) {
@@ -240,98 +313,179 @@ function Home() {
       {/* Hero Section */}
       <section className="hero">
         <div className="container hero__content">
-          <h1 className="animate-on-load">Accurate Gas. Honest Weight.</h1>
-          <p className="animate-on-load delay-1">
-            High-quality cooking gas measured accurately with modern equipment. 
-            We ensure you get exactly what you pay for, every single time.
+          <h1 className="animate-on-load">
+            Accurate Gas. Honest Weight.
+          </h1>
+          <p className="lead animate-on-load delay-1">
+            Premium LPG solutions with digital precision. Your trusted partner 
+            for safe, transparent, and reliable cooking gas services in Aba.
           </p>
           <div className="hero__actions animate-on-load delay-2">
             <button
-              className="btn btn--primary btn--full"
+              className="btn btn--primary"
               onClick={() => navigate("/contact")}
             >
-              Get Directions
+              <FiNavigation /> Get Directions
             </button>
             <button
-              className="btn btn--secondary btn--full"
-              onClick={() => {
-                navigate("/contact");
-                document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
-              }}
+              className="btn btn--secondary"
+              onClick={() => navigate("/about#pricing")}
             >
-              Today's Price
+              <TbCurrencyNaira /> View Pricing
             </button>
+          </div>
+          
+          <div className="hero__trust-badges">
+            <div className="trust-badge">
+              <FaCertificate className="badge-icon" />
+              <span className="badge-text">Certified Quality</span>
+            </div>
+            <div className="trust-badge">
+              <GiWeightScale className="badge-icon" />
+              <span className="badge-text">Digital Weighing</span>
+            </div>
+            <div className="trust-badge">
+              <BsFillShieldLockFill className="badge-icon" />
+              <span className="badge-text">Safety First</span>
+            </div>
+            <div className="trust-badge">
+              <FiEye className="badge-icon" />
+              <span className="badge-text">Transparency</span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="why">
-        <div className="container">
-          <h2 className="animate-on-scroll" id="why">Why Choose Homanol</h2>
+      <section className="why section">
+        <div className="container text-center">
+          <h2 className={`animate-on-scroll ${visibleElements['why-heading'] ? 'visible' : ''}`} data-section="why-heading">
+            Why Choose Homanol
+          </h2>
+          <p className={`lead animate-on-scroll ${visibleElements['why-subtitle'] ? 'visible' : ''}`} data-section="why-subtitle">
+            Building trust through transparency and excellence
+          </p>
+
           <div className="why__grid">
-            <div className={`why__item animate-on-scroll ${visibleElements.why ? 'visible' : ''}`}>
-              <h3>Accurate Measurement</h3>
-              <p>Digital scales ensure you get exactly what you pay for</p>
+            <div
+              className={`why__item animate-on-scroll ${visibleElements['why-1'] ? 'visible' : ''}`}
+              data-section="why-1"
+            >
+              <GiWeightScale className="item-icon" />
+              <h3>Digital Precision</h3>
+              <p>Electronic scales for exact measurement accuracy</p>
             </div>
-            <div className={`why__item animate-on-scroll delay-1 ${visibleElements.why ? 'visible' : ''}`}>
-              <h3>Quality Gas</h3>
-              <p>Premium LPG from certified suppliers</p>
+            <div
+              className={`why__item animate-on-scroll ${visibleElements['why-2'] ? 'visible' : ''}`}
+              data-section="why-2"
+            >
+              <FaGasPump className="item-icon" />
+              <h3>Quality Assured</h3>
+              <p>Certified LPG from trusted national suppliers</p>
             </div>
-            <div className={`why__item animate-on-scroll delay-2 ${visibleElements.why ? 'visible' : ''}`}>
+            <div
+              className={`why__item animate-on-scroll ${visibleElements['why-3'] ? 'visible' : ''}`}
+              data-section="why-3"
+            >
+              <TbCurrencyNaira className="item-icon" />
               <h3>Fair Pricing</h3>
-              <p>Transparent pricing with no hidden fees</p>
+              <p>No hidden charges, complete transparency</p>
             </div>
-            <div className={`why__item animate-on-scroll delay-3 ${visibleElements.why ? 'visible' : ''}`}>
-              <h3>Safety First</h3>
-              <p>Trained staff and proper equipment handling</p>
+            <div
+              className={`why__item animate-on-scroll ${visibleElements['why-4'] ? 'visible' : ''}`}
+              data-section="why-4"
+            >
+              <FaShieldAlt className="item-icon" />
+              <h3>Safety Certified</h3>
+              <p>Professional staff and proper handling</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section className="price">
+      <section className="section section--light">
         <div className="container">
-          <div className="price__card animate-on-scroll" id="services">
-            <h2>Our Services</h2>
+          <div className={`price__card animate-on-scroll ${visibleElements['services'] ? 'visible' : ''}`} data-section="services">
+            <h2><TbGasStation /> Our Services</h2>
+            <p className="lead">Comprehensive LPG solutions for homes and businesses</p>
+
             <div className="services-list">
               <div className="service-item">
-                <h3>LPG Refilling</h3>
-                <p>All cylinder sizes (3kg, 5kg, 6kg, 12.5kg, 25kg, 50kg)</p>
+                <h3><TbGasStation /> LPG Refilling</h3>
+                <p>All cylinder sizes with digital precision weighing</p>
+                <ul className="service-features">
+                  <li><FiCheckCircle /> 3kg, 5kg, 6kg, 12.5kg, 25kg, 50kg cylinders</li>
+                  <li><FiCheckCircle /> Digital scale measurement</li>
+                  <li><FiCheckCircle /> Purity certification</li>
+                </ul>
               </div>
               <div className="service-item">
-                <h3>Cylinder Exchange</h3>
-                <p>Safe exchange program with proper inspection</p>
+                <h3><FaExchangeAlt /> Cylinder Exchange</h3>
+                <p>Safe exchange program with professional inspection</p>
+                <ul className="service-features">
+                  <li><FiCheckCircle /> Valve safety check</li>
+                  <li><FiCheckCircle /> Leak detection test</li>
+                  <li><FiCheckCircle /> Date verification</li>
+                </ul>
               </div>
               <div className="service-item">
-                <h3>Home Delivery</h3>
+                <h3><FiTruck /> Home Delivery</h3>
                 <p>Prompt delivery within Aba and surrounding areas</p>
+                <ul className="service-features">
+                  <li><FiCheckCircle /> Same-day delivery</li>
+                  <li><FiCheckCircle /> Trained delivery personnel</li>
+                  <li><FiCheckCircle /> Safety installation guidance</li>
+                </ul>
               </div>
               <div className="service-item">
-                <h3>Safety Checks</h3>
-                <p>Free safety inspection of your gas setup</p>
+                <h3><FaSearch /> Safety Inspection</h3>
+                <p>Free professional inspection of your gas setup</p>
+                <ul className="service-features">
+                  <li><FiCheckCircle /> Leak detection</li>
+                  <li><FiCheckCircle /> Regulator check</li>
+                  <li><FiCheckCircle /> Ventilation assessment</li>
+                </ul>
               </div>
+            </div>
+
+            <div className={`transparency-badge animate-on-scroll ${visibleElements['transparency'] ? 'visible' : ''}`} data-section="transparency">
+              <FiEye /> 100% Transparent <FaBalanceScale /> Fair Pricing <FaShieldAlt /> Safety First
             </div>
           </div>
         </div>
       </section>
 
       {/* Visit Us Section */}
-      <section className="map">
-        <div className="container">
-          <h2 className="animate-on-scroll">Visit Us Today</h2>
-          <p className="animate-on-scroll">98 Port Harcourt Road, Aba, Abia State</p>
-          <div className="map__embed animate-on-scroll">
+      <section className="map section">
+        <div className="container text-center">
+          <h2 className="animate-on-scroll" data-section="visit-heading">
+            Visit Our Plant
+          </h2>
+          <p className="lead animate-on-scroll" data-section="visit-subtitle">
+            Experience our professional service firsthand
+          </p>
+          
+          <div className="map__embed animate-on-scroll" data-section="map">
             <div className="map-placeholder">
-              <p>📍 Our Location</p>
-              <p>Open: Mon-Sat 7AM-8PM</p>
-              <button 
-                className="btn btn--primary btn--small"
-                onClick={() => navigate("/contact")}
-              >
-                Get Directions
-              </button>
+              <MdLocationOn className="map-icon" />
+              <h3>HOMANOL Gas Plant</h3>
+              <p>98 Port Harcourt Road, Aba, Abia State</p>
+              <p><FiClock /> Open: Mon-Sat 7AM-8PM | Sun 9AM-4PM</p>
+              <div className="direction-buttons">
+                <button 
+                  className="btn btn--primary"
+                  onClick={() => navigate("/contact")}
+                >
+                  <FiNavigation /> Get Directions
+                </button>
+                <button 
+                  className="btn btn--outline"
+                  onClick={() => window.open('https://maps.google.com/?q=98+Port+Harcourt+Road+Aba', '_blank')}
+                >
+                  <FiMapPin /> Open in Maps
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -365,86 +519,151 @@ function About() {
   return (
     <main className="page">
       <div className="container">
-        <h1 ref={aboutRef} className={visible ? 'visible' : ''}>About Homanol</h1>
+        <h1 ref={aboutRef} className={visible ? 'visible' : ''}>
+         About Homanol
+        </h1>
         
         <div className="page__content">
+          {/* Hero Section */}
+          <section className="about-hero animate-on-scroll">
+            <div className="about-hero__content">
+              <h2> Trusted Since 2015</h2>
+              <p className="lead">
+                Founded with a commitment to accuracy and transparency, HOMANOL has grown 
+                from a small family business into Aba's most trusted gas plant.
+              </p>
+            </div>
+          </section>
+
+          {/* Our Story */}
           <section className="page__section animate-on-scroll">
-            <h2>Our Story</h2>
+            <h2> Our Story</h2>
             <p>
-              Founded in 2015, HOMANOL Gas Plant has been serving the Aba community with 
-              reliable and safe cooking gas solutions. What started as a small family 
-              business has grown into one of the most trusted gas plants in the region.
+              HOMANOL Gas Plant was established in 2015 with a simple mission: to provide 
+              accurate, safe, and reliable cooking gas solutions to the Aba community. 
+              What started as a modest operation has grown into a trusted institution 
+              serving thousands of households and businesses.
             </p>
             <p>
-              Our commitment to accuracy and transparency has earned us the trust of 
-              thousands of households and businesses. We believe in building relationships 
-              based on honesty and quality service.
+              Our growth has been built on three pillars: <strong>Accuracy</strong>, 
+              <strong> Transparency</strong>, and <strong>Safety</strong>. We believe 
+              that trust is earned through consistent, honest service.
             </p>
           </section>
 
+          {/* Our Values */}
           <section className="page__section animate-on-scroll">
-            <h2>Our Mission</h2>
-            <p>
-              To provide every customer with accurately measured, high-quality cooking gas 
-              using modern technology, ensuring safety, fairness, and complete transparency 
-              in every transaction.
-            </p>
-          </section>
-
-          <section className="page__section animate-on-scroll">
-            <h2>What We Stand For</h2>
+            <h2>Our Values</h2>
             <div className="values-grid">
               <div className="value-card">
-                <h3>Accuracy</h3>
-                <p>Digital weighing for precise measurement</p>
+                <FiTarget className="value-icon" />
+                <h3>Precision</h3>
+                <p>Digital weighing ensures you get exactly what you pay for</p>
               </div>
               <div className="value-card">
+                <FiEye className="value-icon" />
                 <h3>Transparency</h3>
-                <p>Clear pricing and honest service</p>
+                <p>Clear pricing and open operations build trust</p>
               </div>
               <div className="value-card">
+                <FiShield className="value-icon" />
                 <h3>Safety</h3>
-                <p>Proper handling and trained staff</p>
+                <p>Professional handling and certified equipment</p>
               </div>
               <div className="value-card">
-                <h3>Quality</h3>
-                <p>Certified gas from trusted suppliers</p>
+                <FiThumbsUp className="value-icon" />
+                <h3>Integrity</h3>
+                <p>Honest service that puts customers first</p>
               </div>
             </div>
           </section>
 
+          {/* Pricing & Transparency */}
           <section className="page__section animate-on-scroll" id="pricing">
-            <h2>Pricing & Transparency</h2>
-            <div className="pricing-card">
+            <h2> Pricing & Transparency</h2>
+            <p className="lead">
+              Clear, fair pricing with no hidden charges. We believe in complete transparency.
+            </p>
+            
+            <div className="pricing-card animate-on-scroll">
               <div className="pricing-header">
-                <h3>Today's Gas Prices</h3>
-                <p>Updated daily | No hidden charges</p>
+                <h3><GiWeightScale /> Today's Gas Prices</h3>
+                <p>Updated daily | Market-competitive rates</p>
               </div>
+              
               <div className="pricing-list">
                 <div className="price-item">
-                  <span>Gas per KG</span>
+                  <span><FaGasPump /> Gas per KG</span>
                   <span className="price">₦1,050</span>
                 </div>
                 <div className="price-item">
-                  <span>3kg Cylinder</span>
+                  <span><TbGasStation /> 3kg Cylinder</span>
                   <span className="price">₦3,150</span>
                 </div>
                 <div className="price-item">
-                  <span>5kg Cylinder</span>
+                  <span><TbGasStation /> 5kg Cylinder</span>
                   <span className="price">₦5,250</span>
                 </div>
                 <div className="price-item">
-                  <span>12.5kg Cylinder</span>
+                  <span><TbGasStation /> 12.5kg Cylinder</span>
                   <span className="price">₦13,125</span>
                 </div>
                 <div className="price-item">
-                  <span>25kg Cylinder</span>
+                  <span><TbGasStation /> 25kg Cylinder</span>
                   <span className="price">₦26,250</span>
                 </div>
+                <div className="price-item">
+                  <span><TbGasStation /> 50kg Cylinder</span>
+                  <span className="price">₦52,500</span>
+                </div>
               </div>
+              
+              <div className="pricing-features">
+                <div className="feature">
+                  <FiCheckCircle /> Weighed in front of customers
+                </div>
+                <div className="feature">
+                  <FiCheckCircle /> Digital receipt with breakdown
+                </div>
+                <div className="feature">
+                  <FiCheckCircle /> No hidden charges
+                </div>
+                <div className="feature">
+                  <FiCheckCircle /> Price match guarantee
+                </div>
+              </div>
+              
               <p className="pricing-note">
-                <em>We weigh cylinders in front of customers and provide detailed receipts.</em>
+                <FiAlertTriangle /> <strong>Note:</strong> Prices updated daily based on market rates. 
+                All cylinders weighed digitally for accuracy.
               </p>
+            </div>
+          </section>
+
+          {/* Our Team */}
+          <section className="page__section animate-on-scroll">
+            <h2>Our Team</h2>
+            <p>
+              Our team consists of certified professionals trained in gas handling, 
+              safety procedures, and customer service. Regular training ensures we 
+              maintain the highest standards of safety and professionalism.
+            </p>
+            <div className="team-features">
+              <div className="team-feature">
+                <MdOutlineSupportAgent />
+                <h4>Certified Technicians</h4>
+                <p>Professionally trained and certified</p>
+              </div>
+              <div className="team-feature">
+                <BsClipboardCheck />
+                <h4>Regular Training</h4>
+                <p>Continuous safety and skills training</p>
+              </div>
+              <div className="team-feature">
+                <FaHandHoldingHeart />
+                <h4>Customer Focus</h4>
+                <p>Dedicated to exceptional service</p>
+              </div>
             </div>
           </section>
         </div>
@@ -465,90 +684,206 @@ function Safety() {
   return (
     <main className="page">
       <div className="container">
-        <h1>Gas Safety Guidelines</h1>
+        <h1 className="animate-on-load">
+          Gas Safety Guidelines
+        </h1>
         
         <div className="page__content">
-          <section className="page__section safety-intro animate-on-scroll">
-            <h2>Safety First, Always</h2>
-            <p>
-              LPG is safe when handled properly. Follow these essential guidelines to ensure 
-              the safe use of cooking gas in your home or business.
-            </p>
+          {/* Intro */}
+          <section className="safety-intro animate-on-scroll">
+            <div className="safety-hero">
+              <FiShield className="safety-hero-icon" />
+              <h2>Safety First, Always</h2>
+              <p className="lead">
+                LPG is safe when handled properly. Follow these essential guidelines 
+                to ensure safe gas usage in your home or business.
+              </p>
+            </div>
           </section>
 
+          {/* Safety Do's */}
           <section className="page__section safety-dos animate-on-scroll">
-            <h2>✅ Safety Do's</h2>
+            <h2><FiCheckCircle /> Safety Do's</h2>
+            <p className="section-subtitle">Essential practices for safe gas usage</p>
+            
             <div className="safety-list">
               <div className="safety-item">
+                <div className="safety-icon">
+                  <FiCheckCircle />
+                </div>
                 <h3>Keep Upright</h3>
-                <p>Store cylinders upright at all times</p>
+                <p>Always store cylinders in an upright position</p>
               </div>
               <div className="safety-item">
-                <h3>Ventilation</h3>
-                <p>Store in well-ventilated areas</p>
+                <div className="safety-icon">
+                  <FiCheckCircle />
+                </div>
+                <h3>Proper Ventilation</h3>
+                <p>Store in well-ventilated areas away from heat sources</p>
               </div>
               <div className="safety-item">
+                <div className="safety-icon">
+                  <FiCheckCircle />
+                </div>
                 <h3>Regular Checks</h3>
-                <p>Check for leaks using soap solution</p>
+                <p>Use soap solution to check for leaks regularly</p>
               </div>
               <div className="safety-item">
-                <h3>Proper Equipment</h3>
-                <p>Use approved regulators and hoses</p>
+                <div className="safety-icon">
+                  <FiCheckCircle />
+                </div>
+                <h3>Professional Equipment</h3>
+                <p>Use approved regulators and certified hoses</p>
               </div>
               <div className="safety-item">
-                <h3>Turn Off</h3>
+                <div className="safety-icon">
+                  <FiCheckCircle />
+                </div>
+                <h3>Turn Off Properly</h3>
                 <p>Turn off cylinder valve when not in use</p>
               </div>
+              <div className="safety-item">
+                <div className="safety-icon">
+                  <FiCheckCircle />
+                </div>
+                <h3>Fire Safety</h3>
+                <p>Keep fire extinguisher nearby and know how to use it</p>
+              </div>
             </div>
           </section>
 
+          {/* Safety Don'ts */}
           <section className="page__section safety-donts animate-on-scroll">
-            <h2>❌ Safety Don'ts</h2>
+            <h2><FiXCircle /> Safety Don'ts</h2>
+            <p className="section-subtitle">Practices to avoid for your safety</p>
+            
             <div className="safety-list">
               <div className="safety-item">
+                <div className="safety-icon danger">
+                  <FiXCircle />
+                </div>
                 <h3>No Enclosed Spaces</h3>
-                <p>Don't store in enclosed areas</p>
+                <p>Never store cylinders in enclosed cabinets or rooms</p>
               </div>
               <div className="safety-item">
-                <h3>No Damaged Equipment</h3>
-                <p>Don't use damaged cylinders or accessories</p>
+                <div className="safety-icon danger">
+                  <FiXCircle />
+                </div>
+                <h3>Avoid Damaged Equipment</h3>
+                <p>Don't use cylinders with dents, rust, or damage</p>
               </div>
               <div className="safety-item">
+                <div className="safety-icon danger">
+                  <FiXCircle />
+                </div>
                 <h3>No Open Flames</h3>
-                <p>Don't use flames to check for leaks</p>
+                <p>Never use open flames to check for leaks</p>
               </div>
               <div className="safety-item">
-                <h3>No Direct Sunlight</h3>
-                <p>Don't expose to direct sunlight</p>
+                <div className="safety-icon danger">
+                  <FiXCircle />
+                </div>
+                <h3>Protect from Sunlight</h3>
+                <p>Don't expose cylinders to direct sunlight</p>
               </div>
               <div className="safety-item">
+                <div className="safety-icon danger">
+                  <FiXCircle />
+                </div>
                 <h3>No Self-Repairs</h3>
-                <p>Don't attempt to repair cylinders yourself</p>
+                <p>Never attempt to repair cylinders yourself</p>
+              </div>
+              <div className="safety-item">
+                <div className="safety-icon danger">
+                  <FiXCircle />
+                </div>
+                <h3>No Smoking</h3>
+                <p>Never smoke near gas cylinders or equipment</p>
               </div>
             </div>
           </section>
 
+          {/* Emergency Procedures */}
           <section className="page__section emergency animate-on-scroll">
-            <h2>🚨 Emergency Procedures</h2>
-            <p>If you suspect a gas leak:</p>
-            <ol className="emergency-steps">
-              <li>Turn off the cylinder valve immediately</li>
-              <li>Extinguish all flames (no smoking, no electrical switches)</li>
-              <li>Open doors and windows for ventilation</li>
-              <li>Call our emergency line: <strong>+234 803 999 4567</strong></li>
-              <li>Do not use the gas until inspected by professionals</li>
-            </ol>
+            <div className="emergency-card">
+              <FiAlertTriangle className="emergency-icon" />
+              <h2>Emergency Procedures</h2>
+              <p className="emergency-subtitle">If you suspect a gas leak, follow these steps immediately:</p>
+              
+              <ol className="emergency-steps">
+                <li>
+                  <strong>Turn Off</strong> the cylinder valve immediately
+                </li>
+                <li>
+                  <strong>Extinguish</strong> all flames - no smoking, no electrical switches
+                </li>
+                <li>
+                  <strong>Ventilate</strong> the area - open doors and windows
+                </li>
+                <li>
+                  <strong>Evacuate</strong> the area if leak persists
+                </li>
+                <li>
+                  <strong>Call Emergency:</strong> 
+                  <a href="tel:+2348039994567" className="emergency-phone">
+                    <FiPhone /> +234 803 999 4567
+                  </a>
+                </li>
+                <li>
+                  <strong>Do Not Use</strong> the gas until inspected by professionals
+                </li>
+              </ol>
+              
+              <div className="emergency-contact">
+                <div className="contact-item">
+                  <FiPhone />
+                  <div>
+                    <h4>Emergency Hotline</h4>
+                    <a href="tel:+2348039994567">+234 803 999 4567</a>
+                  </div>
+                </div>
+                <div className="contact-item">
+                  <FaWhatsapp />
+                  <div>
+                    <h4>WhatsApp Emergency</h4>
+                    <a href="https://wa.me/2348039994567">+234 803 999 4567</a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
+          {/* Free Safety Inspection */}
           <section className="page__section safety-offer animate-on-scroll">
             <div className="safety-card">
-              <h2>Free Safety Inspection</h2>
-              <p>We offer free safety inspections of your gas setup. Contact us to schedule a visit from our trained technicians.</p>
+              <div className="safety-card__header">
+                <FaSearch className="safety-card-icon" />
+                <h2>Free Safety Inspection</h2>
+              </div>
+              <p className="safety-card-text">
+                We offer complimentary safety inspections of your gas setup. 
+                Our certified technicians will check for leaks, proper installation, 
+                and safety compliance.
+              </p>
+              <div className="safety-features">
+                <div className="feature">
+                  <FiCheckCircle /> Leak detection test
+                </div>
+                <div className="feature">
+                  <FiCheckCircle /> Regulator safety check
+                </div>
+                <div className="feature">
+                  <FiCheckCircle /> Hose condition assessment
+                </div>
+                <div className="feature">
+                  <FiCheckCircle /> Ventilation evaluation
+                </div>
+              </div>
               <button 
-                className="btn btn--primary"
+                className="btn btn--primary btn--full"
                 onClick={() => window.location.href = "tel:+2348031234567"}
               >
-                Schedule Inspection
+                <FaRegCalendarCheck /> Schedule Free Inspection
               </button>
             </div>
           </section>
@@ -563,15 +898,22 @@ function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
+    email: '',
     message: '',
     service: 'refill'
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real app, this would submit to a backend
-    alert('Message sent! We\'ll contact you shortly.');
-    setFormData({ name: '', phone: '', message: '', service: 'refill' });
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      alert('Thank you! Your message has been sent. We\'ll contact you within 24 hours.');
+      setFormData({ name: '', phone: '', email: '', message: '', service: 'refill' });
+      setIsSubmitting(false);
+    }, 1500);
   };
 
   const handleChange = (e) => {
@@ -584,125 +926,235 @@ function Contact() {
   return (
     <main className="page">
       <div className="container">
-        <h1>Contact & Location</h1>
+        <h1 className="animate-on-load">
+          Contact & Location
+        </h1>
         
         <div className="contact-content">
+          {/* Contact Information */}
           <section className="contact-section animate-on-scroll">
-            <h2>Visit Our Plant</h2>
+            <div className="contact-hero">
+              <FiMapPin className="contact-hero-icon" />
+              <h2>Visit Our Plant</h2>
+              <p className="lead">Experience our professional service in person</p>
+            </div>
+            
             <div className="contact-info">
               <div className="info-item">
-                <h3>📍 Address</h3>
-                <p>98 Port Harcourt Road, Aba, Abia State</p>
-                <p><em>Opposite Trinity Hospital, Near Ariaria Junction</em></p>
+                <div className="info-icon">
+                  <FiMapPin />
+                </div>
+                <div className="info-content">
+                  <h3>Address</h3>
+                  <p>98 Port Harcourt Road, Aba, Abia State</p>
+                  <p className="info-note">
+                    <FiMapPin /> Opposite Trinity Hospital, Near Ariaria Junction
+                  </p>
+                </div>
               </div>
               
               <div className="info-item">
-                <h3>📞 Contact</h3>
-                <p><strong>Phone:</strong> +234 803 123 4567</p>
-                <p><strong>WhatsApp:</strong> +234 803 123 4567</p>
-                <p><strong>Email:</strong> info@homanolgas.com</p>
-                <p><strong>Emergency:</strong> +234 803 999 4567 (24/7)</p>
+                <div className="info-icon">
+                  <FiPhone />
+                </div>
+                <div className="info-content">
+                  <h3>Contact Details</h3>
+                  <div className="contact-details">
+                    <p><strong>Phone:</strong> <a href="tel:+2348031234567">+234 803 123 4567</a></p>
+                    <p><strong>WhatsApp:</strong> <a href="https://wa.me/2348031234567">+234 803 123 4567</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:info@homanolgas.com">info@homanolgas.com</a></p>
+                    <p><strong>Emergency:</strong> <a href="tel:+2348039994567">+234 803 999 4567 (24/7)</a></p>
+                  </div>
+                </div>
               </div>
               
               <div className="info-item">
-                <h3>⏰ Business Hours</h3>
-                <p><strong>Monday - Saturday:</strong> 7:00 AM - 8:00 PM</p>
-                <p><strong>Sundays & Holidays:</strong> 9:00 AM - 4:00 PM</p>
-                <p><strong>Emergency Service:</strong> Available 24/7</p>
-              </div>
-            </div>
-          </section>
-
-          <section className="contact-section animate-on-scroll">
-            <h2>Quick Contact Form</h2>
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name">Full Name *</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  placeholder="Enter your name"
-                />
-              </div>
-              
-              <div className="form-group">
-                <label htmlFor="phone">Phone Number *</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  placeholder="0803 123 4567"
-                />
-              </div>
-              
-              <div className="form-group">
-                <label htmlFor="service">Service Needed</label>
-                <select 
-                  id="service" 
-                  name="service"
-                  value={formData.service}
-                  onChange={handleChange}
-                >
-                  <option value="refill">Gas Refill</option>
-                  <option value="delivery">Home Delivery</option>
-                  <option value="cylinder">Cylinder Purchase</option>
-                  <option value="safety">Safety Inspection</option>
-                  <option value="other">Other Inquiry</option>
-                </select>
-              </div>
-              
-              <div className="form-group">
-                <label htmlFor="message">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows="4"
-                  placeholder="Your message or special instructions..."
-                ></textarea>
-              </div>
-              
-              <button type="submit" className="btn btn--primary">
-                Send Message
-              </button>
-            </form>
-          </section>
-
-          <section className="contact-section animate-on-scroll">
-            <h2>Location Map</h2>
-            <div className="map__embed">
-              <div className="map-placeholder">
-                <h3>📍 HOMANOL Gas Plant</h3>
-                <p>98 Port Harcourt Road, Aba</p>
-                <p>Coordinates: 5.1167° N, 7.3667° E</p>
-                <div className="direction-buttons">
-                  <a 
-                    href="https://maps.google.com/?q=98+Port+Harcourt+Road+Aba" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn--primary btn--small"
-                  >
-                    Open in Google Maps
-                  </a>
+                <div className="info-icon">
+                  <FiClock />
+                </div>
+                <div className="info-content">
+                  <h3>Business Hours</h3>
+                  <div className="business-hours">
+                    <div className="hours-item">
+                      <span className="days">Monday - Saturday</span>
+                      <span className="time">7:00 AM - 8:00 PM</span>
+                    </div>
+                    <div className="hours-item">
+                      <span className="days">Sundays & Holidays</span>
+                      <span className="time">9:00 AM - 4:00 PM</span>
+                    </div>
+                    <div className="hours-item emergency">
+                      <span className="days">Emergency Service</span>
+                      <span className="time">Available 24/7</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
 
+          {/* Contact Form */}
           <section className="contact-section animate-on-scroll">
-            <div className="quick-actions">
-              <h2>Quick Actions</h2>
+            <div className="contact-form-card">
+              <div className="form-header">
+                <FiMessageSquare className="form-icon" />
+                <h2>Quick Contact Form</h2>
+                <p>Send us a message and we'll respond promptly</p>
+              </div>
+              
+              <form className="contact-form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label htmlFor="name">
+                    <FiUserCheck /> Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter your full name"
+                  />
+                </div>
+                
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="phone">
+                      <FiPhone /> Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      required
+                      placeholder="0803 123 4567"
+                    />
+                  </div>
+                  
+                  <div className="form-group">
+                    <label htmlFor="email">
+                      <FiMail /> Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="your@email.com"
+                    />
+                  </div>
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="service">
+                    <TbGasStation /> Service Needed
+                  </label>
+                  <select 
+                    id="service" 
+                    name="service"
+                    value={formData.service}
+                    onChange={handleChange}
+                  >
+                    <option value="refill">Gas Refill</option>
+                    <option value="delivery">Home Delivery</option>
+                    <option value="cylinder">Cylinder Purchase</option>
+                    <option value="exchange">Cylinder Exchange</option>
+                    <option value="safety">Safety Inspection</option>
+                    <option value="other">Other Inquiry</option>
+                  </select>
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="message">
+                    <FiMessageSquare /> Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows="4"
+                    placeholder="Your message or special instructions..."
+                  ></textarea>
+                </div>
+                
+                <button 
+                  type="submit" 
+                  className="btn btn--primary btn--full"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <span className="loading-spinner"></span>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <FiMessageSquare /> Send Message
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
+          </section>
+
+          {/* Map Section */}
+          <section className="contact-section animate-on-scroll">
+            <div className="map-card">
+              <div className="map-header">
+                <FiMapPin className="map-header-icon" />
+                <h2>Location Map</h2>
+                <p>Find us easily with these directions</p>
+              </div>
+              
+              <div className="map__embed">
+                <div className="map-placeholder">
+                  <MdLocationOn className="map-icon" size={64} />
+                  <h3>📍 HOMANOL Gas Plant</h3>
+                  <p>98 Port Harcourt Road, Aba, Abia State</p>
+                  <p>Coordinates: 5.1167° N, 7.3667° E</p>
+                  
+                  <div className="direction-info">
+                    <h4>Directions:</h4>
+                    <ul className="direction-list">
+                      <li>From Ariaria Market: Head towards Port Harcourt Road for 2km</li>
+                      <li>From Aba Main Park: Take Port Harcourt Road for 5km</li>
+                      <li>Look for our red and white signboard</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="direction-buttons">
+                    <a 
+                      href="https://maps.google.com/?q=98+Port+Harcourt+Road+Aba" 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn--primary"
+                    >
+                      <FiNavigation /> Open in Google Maps
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Quick Actions */}
+          <section className="contact-section animate-on-scroll">
+            <div className="quick-actions-card">
+              <div className="actions-header">
+                <FiZap className="actions-icon" />
+                <h2>Quick Actions</h2>
+                <p>Get in touch instantly</p>
+              </div>
+              
               <div className="action-buttons">
                 <a href="tel:+2348031234567" className="action-btn call-btn">
-                  📞 Call Now
+                  <FiPhoneCall />
+                  <span>Call Now</span>
                 </a>
                 <a 
                   href="https://wa.me/2348031234567" 
@@ -710,11 +1162,20 @@ function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  💬 WhatsApp
+                  <FaWhatsapp />
+                  <span>WhatsApp</span>
                 </a>
                 <a href="mailto:info@homanolgas.com" className="action-btn email-btn">
-                  ✉️ Email Us
+                  <FiMail />
+                  <span>Email Us</span>
                 </a>
+                <button 
+                  className="action-btn schedule-btn"
+                  onClick={() => window.location.href = "tel:+2348031234567"}
+                >
+                  <FaRegCalendarCheck />
+                  <span>Schedule Visit</span>
+                </button>
               </div>
             </div>
           </section>
