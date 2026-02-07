@@ -76,7 +76,7 @@ body {
   line-height: 1.6;
   font-weight: 400;
   min-height: 100vh;
-  display: grid;
+  /* display: grid; */
   justify-content: center;
   /* flex-direction: column; */
   overflow-x: hidden;
@@ -132,6 +132,7 @@ p, li, span, a {
 
 /* ===== Animation Classes ===== */
 .animate-on-load {
+  font-size: 2.2rem;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.8s var(--transition-normal) forwards;
@@ -291,6 +292,11 @@ p, li, span, a {
 .logo::before {
   content: '';
   font-size: 1.2em;
+}
+
+.logo-icon {
+  max-width: 70px;
+  width: 30%;
 }
 
 /* Desktop Navigation */
@@ -545,7 +551,7 @@ p, li, span, a {
 }
 
 .badge-text {
-  font-size: 0.875rem;
+  font-size: 0.6rem;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
 }
@@ -776,6 +782,9 @@ p, li, span, a {
 }
 
 .price__card h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: var(--gray-light);
   margin-bottom: var(--spacing-sm);
 }
@@ -789,12 +798,14 @@ p, li, span, a {
 .transparency-badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing-xs);
   background: rgba(255, 255, 255, 0.1);
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: 20px;
-  margin: var(--spacing-md) 0;
+  margin: var(--spacing-md) -2rem;
   font-size: 0.9rem;
+  line-height: 1.2rem;
   backdrop-filter: blur(10px);
 }
 
@@ -1114,6 +1125,10 @@ p, li, span, a {
   color: var(--primary-red);
 }
 
+.map-icon {
+  font-size: 3rem;
+}
+
 .direction-buttons {
   display: flex;
   flex-direction: column;
@@ -1309,6 +1324,10 @@ p, li, span, a {
   margin-bottom: var(--spacing-md);
 }
 
+.about-hero h2::after {
+  background: none;
+}
+
 .about-hero p {
   color: var(--gray-medium);
   font-size: 1.1rem;
@@ -1481,6 +1500,10 @@ p, li, span, a {
 .safety-hero h2 {
   color: var(--primary-red);
   margin-bottom: var(--spacing-md);
+}
+
+.safety-hero h2::after {
+  background: none;
 }
 
 .safety-hero p {
